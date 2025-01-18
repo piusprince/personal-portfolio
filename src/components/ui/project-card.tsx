@@ -1,33 +1,39 @@
 import { ProjectProps } from "@/app/page";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { tech as stackName } from "@/lib/tech";
 import { ArrowRight } from "lucide-react";
 import { PortableText } from "next-sanity";
 import Link from "next/link";
-import { Icon } from "@sanity/icons";
-import { Icons } from "@/components/ui/icons";
+import { renderIcon } from "./icon-renderer";
+import Image from "next/image";
+import { urlFor } from "@/lib/sanity";
 
 export default function ProjectCard({
   _id,
   stack,
   summary,
-  description,
+  // description,
   projectLinks,
   coverImage,
-  isFeatured,
-  slug,
+  // isFeatured,
+  // slug,
   title,
 }: Partial<ProjectProps>) {
-  const renderIcon = (tech: string) => {
-    if (stackName[tech]) {
-      const Icon = stackName[tech].icon;
-      return <Icon className="w-4 h-4" />;
-    }
-  };
-
   return (
-    <Card className="lg:w-[1080px] p-6 border-spacing-5">
+    <Card
+      id={_id}
+      className="lg:w-[1080px] p-6 border border-gray-200 space-y-6"
+    >
+      {coverImage && (
+        <div className="relative w-full h-[632px] rounded-lg overflow-hidden">
+          <Image
+            src={urlFor(coverImage).width(1080).url() ?? ""}
+            alt={title ?? "Project cover image"}
+            fill
+            className="object-cover w-full h-full"
+          />
+        </div>
+      )}
       <div className="space-y-4">
         <div className="space-y-2">
           <h3 className="text-sm font-medium">{title}</h3>
