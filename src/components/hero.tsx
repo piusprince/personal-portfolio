@@ -2,12 +2,13 @@
 
 import { HeroProps } from "@/app/page";
 import { motion } from "motion/react";
+// import {} from "lucide-react"
 
 export default function Hero({
   title,
   heading,
   subheading,
-  contact,
+  //   contact,
 }: HeroProps & { title: string }) {
   return (
     <section className="flex items-center justify-center min-h-screen px-4">
