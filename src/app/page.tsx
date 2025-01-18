@@ -1,10 +1,8 @@
-import DotPattern from "@/components/ui/dotted-background";
-import Image from "next/image";
 import { getHomepage } from "./_actions/getHomepage";
 import ProjectCard from "@/components/ui/project-card";
 import { TypedObject } from "sanity";
-import { Icons } from "@/components/ui/icons";
 import Hero from "@/components/hero";
+import { stackName } from "@/lib/tech";
 
 export type ProjectProps = {
   _id: string;
@@ -13,7 +11,7 @@ export type ProjectProps = {
   coverImage: string;
   summary: TypedObject[];
   stack: {
-    tech: string;
+    tech: keyof typeof stackName;
     icon: string;
   }[];
   projectLinks: {
