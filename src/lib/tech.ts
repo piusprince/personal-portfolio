@@ -1,6 +1,6 @@
 import { Icons } from "@/components/ui/icons";
 
-export const tech = {
+export const stackName = {
   react: { name: "React", icon: Icons.React },
   next: { name: "Next.js", icon: Icons.Nextjs },
   typescript: { name: "TypeScript", icon: Icons.Typescript },
