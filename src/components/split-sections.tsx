@@ -10,6 +10,7 @@ import { TypedObject } from "sanity";
 import { stackName } from "@/lib/tech";
 import { renderIcon } from "./ui/icon-renderer";
 import { motion } from "motion/react";
+import { fadeInLeft, fadeInRight, fadeInUp } from "@/lib/animation";
 
 type SplitContentProps = {
   _id?: string;
@@ -36,19 +37,16 @@ function ContentSection({
 }: Omit<SplitContentProps, "coverImage" | "imageOnRight" | "className">) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      {...fadeInLeft}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
       className="flex p-8 items-start flex-col justify-between bg-dashed"
     >
       <span>
         {title && (
           <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            {...fadeInUp}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ ...fadeInUp.transition, delay: 0.2 }}
             className="text-sm font-geist font-medium tracking-wider uppercase mb-6"
           >
             {title}
@@ -56,10 +54,9 @@ function ContentSection({
         )}
         {stack && (
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            {...fadeInUp}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ ...fadeInUp.transition, delay: 0.3 }}
             className="flex flex-wrap gap-1 mb-4"
           >
             {stack.map((tech) => (
@@ -72,20 +69,18 @@ function ContentSection({
         )}
         {summary && (
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            {...fadeInUp}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+            transition={{ ...fadeInUp.transition, delay: 0.4 }}
           >
             <PortableText value={summary} />
           </motion.div>
         )}
       </span>
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        {...fadeInUp}
         viewport={{ once: true }}
-        transition={{ delay: 0.5 }}
+        transition={{ ...fadeInUp.transition, delay: 0.5 }}
         className="flex gap-4 mt-6"
       >
         {projectLinks?.live && (
@@ -120,10 +115,8 @@ function ContentSection({
 function ImageSection({ coverImage }: Pick<SplitContentProps, "coverImage">) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      {...fadeInRight}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
       className="relative h-full min-h-[300px] md:min-h-[500px] bg-muted col-span-2"
     >
       <Image
