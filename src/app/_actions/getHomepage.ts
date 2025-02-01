@@ -25,6 +25,7 @@ export async function getHomepage() {
         projectLink,
         description,
         isFeatured,
+        imageOnRight,
       }
     }[0]
     `;
