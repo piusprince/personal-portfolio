@@ -1,8 +1,8 @@
 import { getHomepage } from "./_actions/getHomepage";
-import ProjectCard from "@/components/ui/project-card";
 import { TypedObject } from "sanity";
 import Hero from "@/components/hero";
 import { stackName } from "@/lib/tech";
+import { SplitContent } from "@/components/split-sections";
 
 export type ProjectProps = {
   _id: string;
@@ -20,6 +20,7 @@ export type ProjectProps = {
   };
   description: TypedObject[];
   isFeatured: boolean;
+  imageOnRight?: boolean;
 };
 
 export type HeroProps = {
@@ -45,16 +46,22 @@ export default async function Home() {
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-full space-y-8 text-center ">
       <Hero {...data.heroSection} title={data.title} />
+
+      <h2 className="text-2xl font-bold font-bricolage mt-12 mb-8">
+        Featured Projects
+      </h2>
+
       {data.featuredProjects.map((project) => (
-        <ProjectCard
+        <SplitContent
           key={project._id}
-          description={project.summary}
-          coverImage={project.coverImage}
-          stack={project.stack}
+          _id={project._id}
           title={project.title}
-          slug={project.slug}
           summary={project.summary}
+          coverImage={project.coverImage}
+          imageOnRight={project.imageOnRight}
+          stack={project.stack}
           projectLinks={project.projectLinks}
+          className="min-w-full"
         />
       ))}
     </div>
