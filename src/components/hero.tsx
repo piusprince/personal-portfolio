@@ -2,37 +2,29 @@
 
 import { HeroProps } from "@/app/page";
 import { motion } from "motion/react";
-// import {} from "lucide-react"
+import Heading from "./ui/heading";
+import { fadeInUp } from "@/lib/animation";
 
 export default function Hero({
   title,
   heading,
   subheading,
-  //   contact,
 }: HeroProps & { title: string }) {
   return (
-    <section className="flex items-center justify-center min-h-screen px-4">
+    <section className="relative flex items-center justify-center h-[400px] md:h-screen px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...fadeInUp}
           className="inline-block mb-4 text-sm tracking-wider uppercase"
         >
           {title}
         </motion.span>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-6 text-4xl font-bold md:text-6xl lg:text-9xl font-bricolage"
-        >
+        <Heading level="h1" delay={0.2} className="mb-6">
           {heading}
-        </motion.h1>
+        </Heading>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          {...fadeInUp}
+          transition={{ ...fadeInUp.transition, delay: 0.4 }}
           className="max-w-2xl mx-auto mb-8 text-lg text-muted-foreground md:text-xl"
         >
           {subheading}
