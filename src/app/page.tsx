@@ -3,6 +3,7 @@ import { TypedObject } from "sanity";
 import Hero from "@/components/hero";
 import { stackName } from "@/lib/tech";
 import { SplitContent } from "@/components/split-sections";
+import Heading from "@/components/ui/heading";
 
 export type ProjectProps = {
   _id: string;
@@ -47,9 +48,12 @@ export default async function Home() {
     <div className="relative flex flex-col items-center justify-center w-full h-full space-y-8 text-center ">
       <Hero {...data.heroSection} title={data.title} />
 
-      <h2 className="text-2xl font-bold font-bricolage mt-12 mb-8">
+      {/* <h2 className="text-2xl font-bold font-bricolage mt-12 mb-8">
         Featured Projects
-      </h2>
+      </h2> */}
+      <Heading level="h2" className="mt-12 mb-8">
+        Featured Projects
+      </Heading>
 
       {data.featuredProjects.map((project) => (
         <SplitContent
