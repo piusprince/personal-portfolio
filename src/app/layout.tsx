@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import DotPattern from "@/components/ui/dotted-background";
+import { draftMode } from "next/headers";
+import DisableDraftMode from "@/components/disable-draft-mode";
+import { VisualEditing } from "next-sanity";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -40,6 +43,12 @@ export default function RootLayout({
         <main className="relative container min-h-screen px-4 mx-auto sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 dark:text-white">
           {children}
         </main>
+        {(await draftMode()).isEnabled && (
+          <>
+            <DisableDraftMode />
+            <VisualEditing zIndex={1000} />
+          </>
+        )}
       </body>
     </html>
   );
