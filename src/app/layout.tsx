@@ -5,6 +5,7 @@ import DotPattern from "@/components/ui/dotted-background";
 import { draftMode } from "next/headers";
 import DisableDraftMode from "@/components/disable-draft-mode";
 import { VisualEditing } from "next-sanity";
+import Navbar from "@/components/ui/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} antialiased relative min-h-screen`}
       >
         <DotPattern className="fixed inset-0" />
+        <Navbar />
         <main className="relative container min-h-screen px-4 mx-auto sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 dark:text-white">
           {children}
         </main>
