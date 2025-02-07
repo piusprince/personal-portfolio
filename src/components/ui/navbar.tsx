@@ -4,7 +4,7 @@ import { Home, User, Code, Mail } from "lucide-react";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white/30 backdrop-blur-lg md:static  z-10 md:mx-auto rounded-none md:rounded-xl p-4 md:w-4/5 lg:w-3/5 shadow-md lg:my-4">
+    <nav className="fixed top-0 left-0 w-full bg-white/30 backdrop-blur-lg md:static md:w-auto z-10 md:mx-auto rounded-none md:rounded-xl p-4 md:w-4/5 lg:w-3/5 shadow-md lg:my-4">
       <ul className="flex justify-around md:justify-center space-x-6">
         <li>
           <Link

@@ -40,8 +40,8 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} antialiased relative min-h-screen`}
       >
-        <DotPattern className="fixed inset-0" />
         <Navbar />
+        <DotPattern className="fixed inset-0" />
         <main className="relative container min-h-screen px-4 mx-auto sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 dark:text-white">
           {children}
         </main>
