@@ -1,18 +1,10 @@
 "use client";
 
-import { useDraftModeEnvironment } from "next-sanity/hooks";
-
 export default function DisableDraftMode() {
-  const environment = useDraftModeEnvironment();
-
-  if (environment !== "live" && environment !== "unknown") {
-    return null;
-  }
-
   return (
     <a
       href="/api/draft-mode/disable"
-      className="text-sm text-gray-600 hover:text-gray-900"
+      className="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-md shadow-lg text-sm z-50 hover:bg-gray-800"
     >
       Disable Draft Mode
     </a>
