@@ -18,7 +18,7 @@ export async function getHomepage() {
         _id,
         name,
         title,
-        slug,
+        "slug": slug.current,
         coverImage,
         summary,
         stack,
