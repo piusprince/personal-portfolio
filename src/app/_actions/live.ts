@@ -1,10 +1,20 @@
 import { client } from "@/lib/sanity";
-import { defineLive } from "next-sanity";
 
-export const { SanityLive, sanityFetch } = defineLive({
-  client: client.withConfig({
-    token: process.env.SANITY_API_READ_TOKEN,
-  }),
-  serverToken: process.env.SANITY_API_READ_TOKEN,
-  browserToken: process.env.SANITY_API_READ_TOKEN,
-});
+export async function sanityFetch<QueryResponse>({
+  query,
+  params = {},
+  tags,
+}: {
+  query: string;
+  params?: any;
+  tags?: string[];
+}): Promise<QueryResponse> {
+  return client.fetch<QueryResponse>(query, params, {
+    next: {
+      tags,
+    },
+  });
+}
+
+// Dummy export to prevent layout breaking elsewhere if they expect SanityLive
+export const SanityLive = () => null;
