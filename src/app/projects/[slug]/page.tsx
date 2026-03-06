@@ -5,35 +5,37 @@ import { Headline, BodyText } from "@/components/ui/typography";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Project } from "@/types/sanity";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
-  return projects.map((p: any) => ({ slug: p.slug }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const project = await getProjectBySlug(params.slug);
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
   if (!project) return { title: "Project Not Found" };
   return {
     title: `${project.title} — Pius Prince Oduro`,
     description:
-      (((project.summary?.[0] as any)?.children) as any[])?.[0]?.text ||
+      project.summary?.[0]?.children?.[0]?.text ||
       "A frontend engineering case study by Pius Prince Oduro.",
   };
 }
 
 const portableTextComponents = {
   block: {
-    normal: ({ children }: any) => (
+    normal: ({ children }: { children?: React.ReactNode }) => (
       <BodyText muted className="text-base leading-relaxed mb-4">
         {children}
       </BodyText>
     ),
-    h3: ({ children }: any) => (
+    h3: ({ children }: { children?: React.ReactNode }) => (
       <Headline as="h3" className="text-xl mt-10 mb-4">
         {children}
       </Headline>
@@ -44,15 +46,16 @@ const portableTextComponents = {
 export default async function ProjectDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await getProjectBySlug(params.slug);
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
   const galleryItems =
-    project.gallery?.map((img: any) => ({
-      id: img.asset._id,
-      url: img.asset.url,
+    project.gallery?.map((img, index) => ({
+      id: index.toString(),
+      url: img.url,
       alt: img.alt || project.title,
     })) || [];
 
@@ -62,7 +65,7 @@ export default async function ProjectDetailPage({
       <div className="mb-16 max-w-3xl">
         <a
           href="/projects"
-          className="text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors mb-8 inline-flex items-center gap-2"
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-8 inline-flex items-center gap-2"
         >
           ← All Projects
         </a>
@@ -74,7 +77,7 @@ export default async function ProjectDetailPage({
         </Headline>
         {project.summary && (
           <BodyText muted className="text-xl leading-relaxed">
-            {(((project.summary?.[0] as any)?.children) as any[])?.[0]?.text}
+            {project.summary?.[0]?.children?.[0]?.text}
           </BodyText>
         )}
       </div>
@@ -97,7 +100,7 @@ export default async function ProjectDetailPage({
           role={project.role}
           client={project.client}
           duration={project.duration}
-          stack={project.stack?.map((s: any) => s.tech)}
+          stack={project.stack?.map((s) => s.tech)}
           liveUrl={project.projectLinks?.live}
           githubUrl={project.projectLinks?.github}
         />
@@ -106,7 +109,7 @@ export default async function ProjectDetailPage({
         <article className="min-w-0">
           {project.challenge && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-[var(--color-border)]">
+              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
                 The Challenge
               </Headline>
               <PortableText value={project.challenge} components={portableTextComponents} />
@@ -115,7 +118,7 @@ export default async function ProjectDetailPage({
 
           {project.solution && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-[var(--color-border)]">
+              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
                 The Solution
               </Headline>
               <PortableText value={project.solution} components={portableTextComponents} />
@@ -124,7 +127,7 @@ export default async function ProjectDetailPage({
 
           {project.impact && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-[var(--color-border)]">
+              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
                 Impact
               </Headline>
               <PortableText value={project.impact} components={portableTextComponents} />

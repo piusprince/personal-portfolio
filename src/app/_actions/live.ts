@@ -6,7 +6,7 @@ export async function sanityFetch<QueryResponse>({
   tags,
 }: {
   query: string;
-  params?: any;
+  params?: Record<string, unknown>;
   tags?: string[];
 }): Promise<QueryResponse> {
   return client.fetch<QueryResponse>(query, params, {

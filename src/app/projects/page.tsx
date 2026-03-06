@@ -1,6 +1,7 @@
 import { getProjects } from "../_actions/getProjects";
 import { Headline, BodyText } from "@/components/ui/typography";
 import type { Metadata } from "next";
+import { Project } from "@/types/sanity";
 
 export const metadata: Metadata = {
   title: "Projects — Pius Prince Oduro",
@@ -27,9 +28,9 @@ export default async function ProjectsPage() {
       </div>
 
       {/* Projects Grid */}
-      {projects?.length > 0 ? (
+      {projects && projects.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project: any, index: number) => {
+          {projects.map((project: Project, index: number) => {
             const isFeatured = project.isFeatured || index === 0;
             return (
               <a
@@ -44,16 +45,16 @@ export default async function ProjectsPage() {
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-50"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/70 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#09090b] via-[#09090b]/70 to-transparent" />
                   </div>
                 )}
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
                   <div className="flex flex-wrap gap-2 mb-3">
-                    {project.stack?.slice(0, 4).map((item: any) => (
+                    {project.stack?.slice(0, 4).map((item) => (
                       <span
                         key={item.tech}
-                        className="text-xs font-mono px-2 py-1 rounded border border-white/10 bg-black/40 text-[var(--color-muted-foreground)] backdrop-blur-sm"
+                        className="text-xs font-mono px-2 py-1 rounded border border-white/10 bg-black/40 text-muted-foreground backdrop-blur-sm"
                       >
                         {item.tech}
                       </span>
@@ -63,12 +64,11 @@ export default async function ProjectsPage() {
                     {project.title}
                   </Headline>
                   <BodyText muted className="text-sm line-clamp-2 max-w-lg">
-                    {(((project.summary?.[0] as any)?.children) as any[])?.[0]?.text ||
-                      "A frontend engineering case study."}
+                    {project.summary?.[0]?.children?.[0]?.text || "A frontend engineering case study."}
                   </BodyText>
 
                   {/* Arrow indicator */}
-                  <div className="mt-4 flex items-center gap-2 text-[var(--color-accent)] text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                     View case study →
                   </div>
                 </div>

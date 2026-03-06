@@ -11,7 +11,7 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label="Home"
-          className="glass-panel p-2 rounded-xl text-[var(--color-foreground)] hover:text-[var(--color-accent)] transition-colors"
+          className="glass-panel p-2 rounded-xl text-foreground hover:text-accent transition-colors"
         >
           <Logo className="w-8 h-8" bgColor="oklch(14% 0.005 286)" />
         </Link>
@@ -19,12 +19,12 @@ export default function Navbar() {
 
       {/* Center — nav pill, truly centered */}
       <div className="flex justify-center">
-        <nav className="glass-panel px-6 py-3 rounded-[var(--radius-lg)] shadow-lg shadow-black/20">
+        <nav className="glass-panel px-6 py-3 rounded-lg shadow-lg shadow-black/20">
           <ul className="flex items-center space-x-8">
             <li>
               <Link
                 href="/"
-                className="group flex flex-col items-center gap-1 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+                className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Home01Icon className="h-5 w-5" />
                 <span className="text-xs font-medium tracking-wide">Home</span>
@@ -33,7 +33,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className="group flex flex-col items-center gap-1 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+                className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <UserIcon className="h-5 w-5" />
                 <span className="text-xs font-medium tracking-wide">About</span>
@@ -42,7 +42,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/projects"
-                className="group flex flex-col items-center gap-1 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+                className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <CodeCircleIcon className="h-5 w-5" />
                 <span className="text-xs font-medium tracking-wide">Projects</span>
@@ -51,7 +51,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className="group flex flex-col items-center gap-1 text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+                className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail01Icon className="h-5 w-5" />
                 <span className="text-xs font-medium tracking-wide">Contact</span>
