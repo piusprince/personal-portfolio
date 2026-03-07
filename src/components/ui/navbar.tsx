@@ -1,11 +1,20 @@
-import React from "react";
 import Link from "next/link";
-import { Home01Icon, UserIcon, CodeCircleIcon, Mail01Icon } from "hugeicons-react";
+import {
+  Home01Icon,
+  UserIcon,
+  CodeCircleIcon,
+  Mail01Icon,
+  News01Icon,
+  File01Icon,
+} from "hugeicons-react";
 import Logo from "@/components/logo";
+import { getProfile } from "@/app/_actions/getProfile";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const profile = await getProfile();
+
   return (
-    <div className="fixed top-4 left-0 right-0 w-full grid grid-cols-3 items-start z-50 px-6">
+    <div className="fixed top-4 left-0 right-0 w-full grid grid-cols-3 items-start z-50 px-4 sm:px-6">
       {/* Left — logo */}
       <div className="flex justify-start">
         <Link
@@ -45,7 +54,9 @@ export default function Navbar() {
                 className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <CodeCircleIcon className="h-5 w-5" />
-                <span className="text-xs font-medium tracking-wide">Projects</span>
+                <span className="text-xs font-medium tracking-wide">
+                  Projects
+                </span>
               </Link>
             </li>
             <li>
@@ -54,15 +65,37 @@ export default function Navbar() {
                 className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail01Icon className="h-5 w-5" />
-                <span className="text-xs font-medium tracking-wide">Contact</span>
+                <span className="text-xs font-medium tracking-wide">
+                  Contact
+                </span>
               </Link>
             </li>
           </ul>
         </nav>
       </div>
 
-      {/* Right — empty spacer to balance the grid */}
-      <div />
+      {/* Right — utility links */}
+      <div className="flex justify-end gap-2">
+        <Link
+          href="/blog"
+          className="glass-panel px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors inline-flex flex-col items-center gap-1 min-w-20"
+        >
+          <News01Icon className="w-5 h-5" />
+          <span className="text-xs font-medium tracking-wide">Blog</span>
+        </Link>
+
+        {profile?.resumeUrl && (
+          <a
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="glass-panel px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors inline-flex flex-col items-center gap-1 min-w-20"
+          >
+            <File01Icon className="w-5 h-5" />
+            <span className="text-xs font-medium tracking-wide">CV</span>
+          </a>
+        )}
+      </div>
     </div>
   );
 }
