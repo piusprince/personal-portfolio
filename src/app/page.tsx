@@ -57,19 +57,17 @@ export default async function Home() {
       />
 
       {featuredProjects.length > 0 && (
-        <div className="w-full max-w-7xl mx-auto px-4 mt-20 mb-32">
+        <div className="w-full max-w-7xl mx-auto px-4 mt-12 sm:mt-20 mb-24 sm:mb-32">
           <Headline as="h2" className="text-3xl md:text-4xl mb-10 text-center">
             Selected Work
           </Headline>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 auto-rows-[400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 auto-rows-[320px] sm:auto-rows-[380px] lg:auto-rows-[400px]">
             {featuredProjects.map((project, index) => {
               // Bento size logic: Use layoutSize from Sanity
               let spanClass = "col-span-1";
-              if (project.layoutSize === "large")
-                spanClass = "md:col-span-2 lg:col-span-2";
-              if (project.layoutSize === "medium")
-                spanClass = "md:col-span-2 lg:col-span-1";
+              if (project.layoutSize === "large") spanClass = "lg:col-span-2";
+              if (project.layoutSize === "medium") spanClass = "lg:col-span-1";
 
               return (
                 <Link
@@ -87,20 +85,22 @@ export default async function Home() {
                         sizes="(min-width: 1024px) 66vw, (min-width: 768px) 48vw, 96vw"
                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 mix-blend-overlay"
                       />
-                      <div className="absolute inset-0 bg-linear-to-t from-card via-card/80 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-card via-card/90 via-55% to-transparent" />
                     </div>
                   )}
 
-                  <div className="absolute bottom-0 left-0 right-0 p-8 z-10 flex flex-col gap-2 text-left">
-                    <div className="flex gap-2 mb-2">
-                      {project.stack?.slice(0, 3).map((item) => {
+                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-8 z-10 flex flex-col gap-2.5 text-left">
+                      <div className="flex flex-wrap gap-2 mb-1">
+                        {project.stack?.slice(0, 3).map((item, stackIndex) => {
                         const techMeta = getTechMetaByLabel(item.tech);
                         const Icon = techMeta?.icon;
 
                         return (
                           <span
                             key={item.tech}
-                            className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-1 rounded border border-border bg-black/50 text-muted-foreground backdrop-blur-md"
+                              className={`inline-flex items-center gap-1.5 text-xs font-mono px-2 py-1 rounded border border-border bg-black/55 text-muted-foreground backdrop-blur-md ${
+                                stackIndex === 2 ? "hidden sm:inline-flex" : ""
+                              }`}
                           >
                             {Icon && <Icon className="w-3.5 h-3.5" />}
                             {item.tech}
@@ -108,14 +108,14 @@ export default async function Home() {
                         );
                       })}
                     </div>
-                    <Headline as="h3" className="text-2xl">
+                      <Headline as="h3" className="text-2xl sm:text-2xl leading-tight max-w-[20ch]">
                       {project.title}
                     </Headline>
-                    <BodyText className="text-sm text-muted-foreground line-clamp-2">
+                      <BodyText className="text-sm text-muted-foreground/95 line-clamp-2 max-w-[46ch]">
                       {project.summary?.[0]?.children?.[0]?.text ||
                         "A frontend engineering case study."}
                     </BodyText>
-                    <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium opacity-100 sm:opacity-0 sm:-translate-x-2 sm:group-hover:opacity-100 sm:group-hover:translate-x-0 transition-all duration-300">
                       View project <ArrowRight01Icon className="w-4 h-4" />
                     </div>
                   </div>

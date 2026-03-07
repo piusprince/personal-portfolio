@@ -23,6 +23,8 @@ interface MasonryGridProps {
 
 export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   const activeItem = useMemo(() => {
     if (activeIndex === null) return null;
@@ -41,6 +43,33 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
   function previousImage() {
     if (activeIndex === null) return;
     setActiveIndex((activeIndex - 1 + items.length) % items.length);
+  }
+
+  function onTouchStart(event: React.TouchEvent<HTMLDivElement>) {
+    const touch = event.touches[0];
+    setTouchStartX(touch.clientX);
+    setTouchStartY(touch.clientY);
+  }
+
+  function onTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
+    if (touchStartX === null || touchStartY === null || items.length < 2) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+
+    setTouchStartX(null);
+    setTouchStartY(null);
+
+    const horizontalThreshold = 45;
+    const verticalThreshold = 36;
+    if (Math.abs(deltaX) > horizontalThreshold && Math.abs(deltaY) < verticalThreshold) {
+      if (deltaX < 0) {
+        nextImage();
+      } else {
+        previousImage();
+      }
+    }
   }
 
   return (
@@ -87,8 +116,18 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm p-4 md:p-8">
           <button
             type="button"
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            className="absolute inset-0"
             onClick={closeLightbox}
+            aria-label="Close image preview"
+          />
+
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/15 p-2 text-white hover:bg-white/25"
+            onClick={(event) => {
+              event.stopPropagation();
+              closeLightbox();
+            }}
             aria-label="Close image preview"
           >
             <Cancel01Icon className="h-5 w-5" />
@@ -98,7 +137,7 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
             <>
               <button
                 type="button"
-                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/15 p-2.5 text-white hover:bg-white/25 hidden md:inline-flex"
                 onClick={(event) => {
                   event.stopPropagation();
                   previousImage();
@@ -109,7 +148,7 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
               </button>
               <button
                 type="button"
-                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/15 p-2.5 text-white hover:bg-white/25 hidden md:inline-flex"
                 onClick={(event) => {
                   event.stopPropagation();
                   nextImage();
@@ -121,7 +160,11 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
             </>
           )}
 
-          <div className="relative mx-auto h-[85vh] max-w-6xl">
+          <div
+            className="relative z-10 mx-auto h-[78vh] md:h-[85vh] max-w-6xl"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <Image
               src={activeItem.url}
               alt={activeItem.alt}
@@ -131,6 +174,40 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
               priority
             />
           </div>
+
+          {items.length > 1 && (
+            <div className="md:hidden absolute z-10 bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 glass-panel rounded-2xl px-3 py-2 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  previousImage();
+                }}
+                className="rounded-full bg-white/15 p-2 text-white"
+                aria-label="Previous image"
+              >
+                <ArrowLeft01Icon className="h-5 w-5" />
+              </button>
+              <span className="text-xs text-white/85 font-medium min-w-14 text-center">
+                {(activeIndex ?? 0) + 1} / {items.length}
+              </span>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  nextImage();
+                }}
+                className="rounded-full bg-white/15 p-2 text-white"
+                aria-label="Next image"
+              >
+                <ArrowRight01Icon className="h-5 w-5" />
+              </button>
+            </div>
+          )}
+
+          <p className="md:hidden absolute z-10 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+3.5rem)] left-1/2 -translate-x-1/2 text-[11px] text-white/60">
+            Swipe to browse. Tap outside image to close.
+          </p>
         </div>
       )}
     </>

@@ -19,14 +19,14 @@ export default async function ProjectsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-16">
+      <div className="mb-12 sm:mb-16">
         <BodyText
           muted
           className="text-sm uppercase tracking-widest font-semibold mb-4"
         >
           Selected Work
         </BodyText>
-        <Headline as="h1" className="text-5xl md:text-6xl tracking-tight mb-6">
+        <Headline as="h1" className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6">
           Projects
         </Headline>
         <BodyText muted className="text-lg max-w-xl leading-relaxed">
@@ -37,14 +37,18 @@ export default async function ProjectsPage() {
 
       {/* Projects Grid */}
       {projects && projects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {projects.map((project: Project, index: number) => {
             const fallbackSize =
               project.isFeatured || index === 0 ? "large" : "small";
             const layoutSize = project.layoutSize || fallbackSize;
-            let sizeClass = "h-[380px]";
-            if (layoutSize === "large") sizeClass = "md:col-span-2 h-[480px]";
-            if (layoutSize === "medium") sizeClass = "h-[430px]";
+            let sizeClass = "h-[320px] sm:h-[380px]";
+            if (layoutSize === "large") {
+              sizeClass = "md:col-span-2 h-[360px] sm:h-[430px] md:h-[480px]";
+            }
+            if (layoutSize === "medium") {
+              sizeClass = "h-[340px] sm:h-[430px]";
+            }
 
             return (
               <Link
@@ -65,7 +69,7 @@ export default async function ProjectsPage() {
                   </div>
                 )}
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 z-10">
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.stack?.slice(0, 4).map((item) => {
                       const techMeta = getTechMetaByLabel(item.tech);
@@ -84,7 +88,7 @@ export default async function ProjectsPage() {
                   </div>
                   <Headline
                     as="h2"
-                    className={`mb-2 tracking-tight ${layoutSize === "large" ? "text-3xl" : "text-2xl"}`}
+                    className={`mb-2 tracking-tight ${layoutSize === "large" ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}
                   >
                     {project.title}
                   </Headline>
@@ -94,7 +98,7 @@ export default async function ProjectsPage() {
                   </BodyText>
 
                   {/* Arrow indicator */}
-                  <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium opacity-100 sm:opacity-0 sm:-translate-x-2 sm:group-hover:opacity-100 sm:group-hover:translate-x-0 transition-all duration-300">
                     View case study <ArrowRight01Icon className="w-4 h-4" />
                   </div>
                 </div>

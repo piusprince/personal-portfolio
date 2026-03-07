@@ -104,7 +104,7 @@ export default async function ProjectDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
       {/* Project Header */}
-      <div className="mb-16 max-w-3xl">
+      <div className="mb-12 sm:mb-16 max-w-3xl">
         <Link
           href="/projects"
           className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-8 inline-flex items-center gap-2"
@@ -114,7 +114,7 @@ export default async function ProjectDetailPage({
         </Link>
         <Headline
           as="h1"
-          className="text-5xl md:text-6xl tracking-tight mt-6 mb-6 leading-[1.1]"
+          className="text-4xl sm:text-5xl md:text-6xl tracking-tight mt-6 mb-6 leading-[1.1]"
         >
           {project.title}
         </Headline>
@@ -127,21 +127,22 @@ export default async function ProjectDetailPage({
 
       {/* Cover image */}
       {project.coverImage && (
-        <div className="w-full h-120 rounded-2xl overflow-hidden mb-20 glass-panel">
-          <Image
-            src={project.coverImage}
-            alt={project.title}
-            width={1600}
-            height={900}
-            sizes="(min-width: 1280px) 1200px, (min-width: 768px) 92vw, 96vw"
-            className="w-full h-full object-cover"
-            priority
-          />
+        <div className="w-full rounded-2xl overflow-hidden mb-14 sm:mb-20 glass-panel bg-black/20">
+          <div className="relative h-55 sm:h-80 md:h-105 lg:h-130">
+            <Image
+              src={project.coverImage}
+              alt={project.title}
+              fill
+              sizes="(min-width: 1280px) 1200px, (min-width: 768px) 92vw, 96vw"
+              className="w-full h-full object-contain"
+              priority
+            />
+          </div>
         </div>
       )}
 
       {/* Two-column body */}
-      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16">
         {/* Sticky sidebar */}
         <ProjectMeta
           role={project.role}
