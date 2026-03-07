@@ -1,5 +1,6 @@
 "use server";
 import { client } from "@/lib/sanity";
+import { sanitizeTextValue } from "@/lib/text";
 import { groq } from "next-sanity";
 import { Project } from "@/types/sanity";
 
@@ -18,7 +19,12 @@ export async function getProjects(): Promise<Project[]> {
       accentColor
     }
   `;
-  return client.fetch<Project[]>(query, {}, { next: { revalidate: 0 } });
+  const data = await client.fetch<Project[]>(
+    query,
+    {},
+    { next: { revalidate: 0 } },
+  );
+  return sanitizeTextValue(data);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
@@ -45,5 +51,10 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       }
     }
   `;
-  return client.fetch<Project | null>(query, { slug }, { next: { revalidate: 0 } });
+  const data = await client.fetch<Project | null>(
+    query,
+    { slug },
+    { next: { revalidate: 0 } },
+  );
+  return sanitizeTextValue(data);
 }

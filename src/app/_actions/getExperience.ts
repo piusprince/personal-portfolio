@@ -1,5 +1,6 @@
 "use server";
 import { client } from "@/lib/sanity";
+import { sanitizeTextValue } from "@/lib/text";
 import { groq } from "next-sanity";
 import { Experience } from "@/types/sanity";
 
@@ -20,5 +21,6 @@ export async function getExperience(): Promise<Experience[]> {
     }
   `;
 
-  return client.fetch<Experience[]>(query);
+  const data = await client.fetch<Experience[]>(query);
+  return sanitizeTextValue(data);
 }

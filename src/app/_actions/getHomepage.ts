@@ -1,9 +1,13 @@
 "use server";
 import { client } from "@/lib/sanity";
+import { sanitizeTextValue } from "@/lib/text";
 import { groq } from "next-sanity";
-import { Homepage, Profile, SocialLink } from "@/types/sanity";
+import { Homepage, Profile } from "@/types/sanity";
 
-export async function getHomepage(): Promise<{ home: Homepage | null; contact: { email?: string; socialLinks: { platform: string; url: string }[] } }> {
+export async function getHomepage(): Promise<{
+  home: Homepage | null;
+  contact: { email?: string; socialLinks: { platform: string; url: string }[] };
+}> {
   const query = groq`
     {
       "home": *[_type == "homepage"] | order(_updatedAt desc) [0] {
@@ -32,17 +36,22 @@ export async function getHomepage(): Promise<{ home: Homepage | null; contact: {
     }
   `;
 
-  const result = await client.fetch<{ home: Homepage | null; profile: Profile | null }>(query, {}, { next: { revalidate: 0 } });
+  const result = await client.fetch<{
+    home: Homepage | null;
+    profile: Profile | null;
+  }>(query, {}, { next: { revalidate: 0 } });
+  const cleanResult = sanitizeTextValue(result);
 
   return {
-    home: result.home,
+    home: cleanResult.home,
     contact: {
-      email: result.profile?.email,
-      socialLinks: result.profile?.socials?.map((s) => ({
-        platform: s.platform,
-        url: s.url
-      })) || []
-    }
+      email: cleanResult.profile?.email,
+      socialLinks:
+        cleanResult.profile?.socials?.map((s) => ({
+          platform: s.platform,
+          url: s.url,
+        })) || [],
+    },
   };
 }
 
