@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <defs>
+    <mask id="cutout">
+      <rect width="140" height="140" fill="white" />
+      <path 
+        d="M 65,115 L 65,55 L 90,55 A 20,20 0 0,1 110,75 A 20,20 0 0,1 90,95 L 65,95" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="22" 
+        stroke-linejoin="miter" 
+        stroke-linecap="square" 
+      />
+    </mask>
+  </defs>
+
+  <style>
+    path.shape { stroke: #0f172a; }
+    @media (prefers-color-scheme: dark) {
+      path.shape { stroke: #f8fafc; }
+    }
+  </style>
+
+  <!-- First 'P' (Back) - masked by the second P outline -->
+  <path 
+    class="shape"
+    d="M 45,95 L 45,35 L 70,35 A 20,20 0 0,1 90,55 A 20,20 0 0,1 70,75 L 45,75" 
+    fill="none" 
+    stroke-width="12" 
+    stroke-linejoin="miter" 
+    stroke-linecap="square" 
+    mask="url(#cutout)"
+  />
+
+  <!-- Second 'P' (Front) -->
+  <path 
+    class="shape"
+    d="M 65,115 L 65,55 L 90,55 A 20,20 0 0,1 110,75 A 20,20 0 0,1 90,95 L 65,95" 
+    fill="none" 
+    stroke-width="12" 
+    stroke-linejoin="miter" 
+    stroke-linecap="square" 
+  />
+</svg>
