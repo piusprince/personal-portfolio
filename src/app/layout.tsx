@@ -26,26 +26,39 @@ const bricolageGrotesque = Bricolage_Grotesque({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Pius Prince Oduro - Software Engineer",
+  title: {
+    default: "Pius Prince Oduro — Software Engineer",
+    template: "%s — Pius Prince Oduro",
+  },
   description:
-    "Software Engineer, Frontend Developer, and Open Source Enthusiast",
+    "Senior Software Developer at AmaliTech. Building high-performance frontends and multi-tenant systems for the West African market.",
   metadataBase: new URL(siteUrl),
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
-    title: "Pius Prince Oduro - Software Engineer",
+    title: "Pius Prince Oduro — Software Engineer",
     description:
-      "Software Engineer, Frontend Developer, and Open Source Enthusiast",
+      "Senior Software Developer at AmaliTech. Building high-performance frontends and multi-tenant systems for the West African market.",
     url: siteUrl,
     siteName: "Pius Prince Oduro",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pius Prince Oduro - Software Engineer",
+    title: "Pius Prince Oduro — Software Engineer",
     description:
-      "Software Engineer, Frontend Developer, and Open Source Enthusiast",
+      "Senior Software Developer at AmaliTech. Building high-performance frontends and multi-tenant systems for the West African market.",
+    creator: "@_piusprince_",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 

@@ -43,7 +43,7 @@ export default async function AboutPage() {
         </BodyText>
         <Headline
           as="h1"
-          className="text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]"
+          className="text-3xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]"
         >
           {profile.tagline || "Building things that scale."}
         </Headline>
@@ -151,7 +151,7 @@ export default async function AboutPage() {
       {/* CTA */}
       <section className="glass-panel rounded-2xl p-10 text-center">
         <Headline as="h2" className="text-3xl mb-4">
-          Let&apos;s build something great.
+          Open to new opportunities.
         </Headline>
         <BodyText
           muted
