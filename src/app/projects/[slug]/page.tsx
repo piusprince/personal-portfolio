@@ -5,7 +5,9 @@ import { Headline, BodyText } from "@/components/ui/typography";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Project } from "@/types/sanity";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft01Icon } from "hugeicons-react";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -41,16 +43,37 @@ const portableTextComponents = {
       </Headline>
     ),
   },
+  list: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <ul className="mb-4 list-disc pl-5 text-muted-foreground space-y-2">
+        {children}
+      </ul>
+    ),
+    number: ({ children }: { children?: React.ReactNode }) => (
+      <ol className="mb-4 list-decimal pl-5 text-muted-foreground space-y-2">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <li className="text-base leading-relaxed">{children}</li>
+    ),
+    number: ({ children }: { children?: React.ReactNode }) => (
+      <li className="text-base leading-relaxed">{children}</li>
+    ),
+  },
 };
 
 export default async function ProjectDetailPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ slug: string }>;
-}) {
+}>) {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   const galleryItems =
     project.gallery?.map((img, index) => ({
@@ -59,16 +82,36 @@ export default async function ProjectDetailPage({
       alt: img.alt || project.title,
     })) || [];
 
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description:
+      project.summary?.[0]?.children?.[0]?.text ||
+      "Frontend engineering project case study.",
+    image: project.coverImage,
+    url: `${siteUrl}/projects/${project.slug}`,
+    author: {
+      "@type": "Person",
+      name: "Pius Prince Oduro",
+    },
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
       {/* Project Header */}
       <div className="mb-16 max-w-3xl">
-        <a
+        <Link
           href="/projects"
           className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-8 inline-flex items-center gap-2"
         >
-          ← All Projects
-        </a>
+          <ArrowLeft01Icon className="h-4 w-4" />
+          All Projects
+        </Link>
         <Headline
           as="h1"
           className="text-5xl md:text-6xl tracking-tight mt-6 mb-6 leading-[1.1]"
@@ -84,11 +127,15 @@ export default async function ProjectDetailPage({
 
       {/* Cover image */}
       {project.coverImage && (
-        <div className="w-full h-[480px] rounded-2xl overflow-hidden mb-20 glass-panel">
-          <img
+        <div className="w-full h-120 rounded-2xl overflow-hidden mb-20 glass-panel">
+          <Image
             src={project.coverImage}
             alt={project.title}
+            width={1600}
+            height={900}
+            sizes="(min-width: 1280px) 1200px, (min-width: 768px) 92vw, 96vw"
             className="w-full h-full object-cover"
+            priority
           />
         </div>
       )}
@@ -109,28 +156,46 @@ export default async function ProjectDetailPage({
         <article className="min-w-0">
           {project.challenge && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
+              <Headline
+                as="h2"
+                className="text-2xl mb-6 pb-4 border-b border-border"
+              >
                 The Challenge
               </Headline>
-              <PortableText value={project.challenge} components={portableTextComponents} />
+              <PortableText
+                value={project.challenge}
+                components={portableTextComponents}
+              />
             </section>
           )}
 
           {project.solution && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
+              <Headline
+                as="h2"
+                className="text-2xl mb-6 pb-4 border-b border-border"
+              >
                 The Solution
               </Headline>
-              <PortableText value={project.solution} components={portableTextComponents} />
+              <PortableText
+                value={project.solution}
+                components={portableTextComponents}
+              />
             </section>
           )}
 
           {project.impact && (
             <section className="mb-12">
-              <Headline as="h2" className="text-2xl mb-6 pb-4 border-b border-border">
+              <Headline
+                as="h2"
+                className="text-2xl mb-6 pb-4 border-b border-border"
+              >
                 Impact
               </Headline>
-              <PortableText value={project.impact} components={portableTextComponents} />
+              <PortableText
+                value={project.impact}
+                components={portableTextComponents}
+              />
             </section>
           )}
 
