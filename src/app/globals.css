@@ -38,6 +38,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-geist), sans-serif;
+    overflow-x: clip;
     scrollbar-width: thin;
     scrollbar-color: var(--color-muted) var(--color-background);
   }

@@ -29,7 +29,7 @@ export default function Hero({
   const email = contact?.email;
 
   return (
-    <section className="relative flex flex-col justify-center min-h-[70vh] px-4 pt-10">
+    <section className="relative flex flex-col justify-center min-h-[70vh] px-4 pt-10 overflow-hidden">
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center z-10">
         <motion.div {...fadeInUp} className="mb-6">
           <Headline
@@ -78,7 +78,7 @@ export default function Hero({
       </div>
 
       {/* Decorative subtle background glow behind hero text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-accent/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[22rem] h-[15rem] sm:w-150 sm:h-100 bg-accent/10 blur-[120px] rounded-full pointer-events-none" />
     </section>
   );
 }

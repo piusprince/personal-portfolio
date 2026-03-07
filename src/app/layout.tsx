@@ -6,6 +6,7 @@ import DisableDraftMode from "@/components/disable-draft-mode";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import PageTransition from "@/components/ui/page-transition";
+import { getProfile } from "@/app/_actions/getProfile";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,12 +56,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profile = await getProfile();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} antialiased relative min-h-screen`}
       >
-        <Navbar />
+        <Navbar resumeUrl={profile?.resumeUrl} />
         <main className="relative container min-h-screen px-4 mx-auto sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-24 sm:pt-32 pb-28 sm:pb-16">
           <PageTransition>{children}</PageTransition>
         </main>

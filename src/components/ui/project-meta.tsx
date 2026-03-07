@@ -23,7 +23,12 @@ export function ProjectMeta({
   className,
 }: Readonly<ProjectMetaProps>) {
   return (
-    <aside className={cn("flex flex-col gap-8 lg:gap-10 lg:sticky lg:top-32", className)}>
+    <aside
+      className={cn(
+        "flex flex-col gap-8 lg:gap-10 lg:sticky lg:top-32",
+        className,
+      )}
+    >
       {/* Role */}
       {role && (
         <div className="flex flex-col gap-1">
@@ -79,7 +84,9 @@ export function ProjectMeta({
                   {(() => {
                     const techMeta = getTechMetaByLabel(item);
                     const Icon = techMeta?.icon;
-                    return Icon ? <Icon className="w-4 h-4 shrink-0 mt-0.5" /> : null;
+                    return Icon ? (
+                      <Icon className="w-4 h-4 shrink-0 mt-0.5" />
+                    ) : null;
                   })()}
                   {item}
                 </BodyText>

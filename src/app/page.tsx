@@ -39,7 +39,7 @@ export default async function Home() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-full space-y-8 text-center ">
+    <div className="relative flex flex-col items-center justify-center h-full space-y-8 text-center ">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -62,7 +62,7 @@ export default async function Home() {
             Selected Work
           </Headline>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 auto-rows-[320px] sm:auto-rows-[380px] lg:auto-rows-[400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 auto-rows-[380px] sm:auto-rows-[410px] lg:auto-rows-[420px]">
             {featuredProjects.map((project, index) => {
               // Bento size logic: Use layoutSize from Sanity
               let spanClass = "col-span-1";
@@ -89,18 +89,18 @@ export default async function Home() {
                     </div>
                   )}
 
-                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-8 z-10 flex flex-col gap-2.5 text-left">
-                      <div className="flex flex-wrap gap-2 mb-1">
-                        {project.stack?.slice(0, 3).map((item, stackIndex) => {
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 md:p-8 z-10 flex flex-col gap-2.5 text-left">
+                    <div className="flex flex-wrap gap-2 mb-1">
+                      {project.stack?.slice(0, 3).map((item, stackIndex) => {
                         const techMeta = getTechMetaByLabel(item.tech);
                         const Icon = techMeta?.icon;
 
                         return (
                           <span
                             key={item.tech}
-                              className={`inline-flex items-center gap-1.5 text-xs font-mono px-2 py-1 rounded border border-border bg-black/55 text-muted-foreground backdrop-blur-md ${
-                                stackIndex === 2 ? "hidden sm:inline-flex" : ""
-                              }`}
+                            className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-border bg-black/55 text-muted-foreground backdrop-blur-md ${
+                              stackIndex === 2 ? "hidden md:inline-flex" : ""
+                            }`}
                           >
                             {Icon && <Icon className="w-3.5 h-3.5" />}
                             {item.tech}
@@ -108,10 +108,13 @@ export default async function Home() {
                         );
                       })}
                     </div>
-                      <Headline as="h3" className="text-2xl sm:text-2xl leading-tight max-w-[20ch]">
+                    <Headline
+                      as="h3"
+                      className="text-xl sm:text-2xl leading-tight max-w-none sm:max-w-[20ch]"
+                    >
                       {project.title}
                     </Headline>
-                      <BodyText className="text-sm text-muted-foreground/95 line-clamp-2 max-w-[46ch]">
+                    <BodyText className="text-sm text-muted-foreground/95 line-clamp-3 max-w-[46ch]">
                       {project.summary?.[0]?.children?.[0]?.text ||
                         "A frontend engineering case study."}
                     </BodyText>

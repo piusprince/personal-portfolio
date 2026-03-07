@@ -26,7 +26,10 @@ export default async function ProjectsPage() {
         >
           Selected Work
         </BodyText>
-        <Headline as="h1" className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6">
+        <Headline
+          as="h1"
+          className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6"
+        >
           Projects
         </Headline>
         <BodyText muted className="text-lg max-w-xl leading-relaxed">

@@ -52,7 +52,8 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
   }
 
   function onTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
-    if (touchStartX === null || touchStartY === null || items.length < 2) return;
+    if (touchStartX === null || touchStartY === null || items.length < 2)
+      return;
 
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - touchStartX;
@@ -63,7 +64,10 @@ export function MasonryGrid({ items, className }: Readonly<MasonryGridProps>) {
 
     const horizontalThreshold = 45;
     const verticalThreshold = 36;
-    if (Math.abs(deltaX) > horizontalThreshold && Math.abs(deltaY) < verticalThreshold) {
+    if (
+      Math.abs(deltaX) > horizontalThreshold &&
+      Math.abs(deltaY) < verticalThreshold
+    ) {
       if (deltaX < 0) {
         nextImage();
       } else {
