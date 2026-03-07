@@ -70,7 +70,10 @@ export function getTechMetaByLabel(label?: string) {
   if (!label) return null;
 
   const normalizedLabel = normalizeTechLabel(label);
-  let bestMatch: { score: number; meta: (typeof stackName)[keyof typeof stackName] } | null = null;
+  let bestMatch: {
+    score: number;
+    meta: (typeof stackName)[keyof typeof stackName];
+  } | null = null;
 
   for (const [key, meta] of Object.entries(stackName)) {
     const normalizedCandidates = [

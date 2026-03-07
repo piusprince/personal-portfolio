@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { Headline, BodyText } from "./ui/typography";
 import { Button } from "./ui/button";
-import { ArrowUpRight01Icon } from "hugeicons-react";
+import { Rocket01Icon } from "hugeicons-react";
 
 interface HeroProps {
   heading: string;
@@ -62,7 +62,7 @@ export default function Hero({
               asChild
             >
               <a href={`mailto:${email}`}>
-                Start a project <ArrowUpRight01Icon className="w-4 h-4 ml-2" />
+                Start a project <Rocket01Icon className="w-4 h-4 ml-2" />
               </a>
             </Button>
           )}

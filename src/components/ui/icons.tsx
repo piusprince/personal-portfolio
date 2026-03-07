@@ -572,19 +572,8 @@ export const Icons = {
     </svg>
   ),
   Zitadel: (props: SVGProps<SVGSVGElement>) => (
-    <svg {...props} viewBox="0 0 24 24" fill="none">
-      <defs>
-        <linearGradient id="zitadel__a" x1="4" y1="3" x2="20" y2="21">
-          <stop stopColor="#FF8F00" />
-          <stop offset="1" stopColor="#FE00FF" />
-        </linearGradient>
-      </defs>
-      <path fill="url(#zitadel__a)" d="m12 2 3.4 5.9H8.6z" />
-      <path fill="url(#zitadel__a)" d="m5.5 6.2 3.4 5.9H2.1z" />
-      <path fill="url(#zitadel__a)" d="m18.5 6.2 3.4 5.9h-6.8z" />
-      <path fill="url(#zitadel__a)" d="m8.8 12.4 3.4 5.9H5.4z" />
-      <path fill="url(#zitadel__a)" d="m15.2 12.4 3.4 5.9h-6.8z" />
-      <circle cx="12" cy="20.4" r="1.2" fill="#101010" />
+    <svg {...props} viewBox="0 0 295 81" preserveAspectRatio="xMidYMid meet">
+      <image href="/icons/zitadel.svg" width="295" height="81" />
     </svg>
   ),
 };
