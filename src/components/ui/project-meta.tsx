@@ -104,6 +104,7 @@ export function ProjectMeta({
               href={liveUrl}
               target="_blank"
               rel="noreferrer"
+              data-umami-event="Project Live Preview Click"
               className="group flex items-center gap-2 transition-colors"
             >
               <BodyText className="font-medium text-sm transition-colors">
@@ -119,6 +120,7 @@ export function ProjectMeta({
               href={githubUrl}
               target="_blank"
               rel="noreferrer"
+              data-umami-event="Project View Source Click"
               className="group flex items-center gap-2 opacity-80 hover:opacity-100 transition-colors"
             >
               <BodyText className="font-medium text-sm transition-colors">

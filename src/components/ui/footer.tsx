@@ -80,6 +80,7 @@ export default async function Footer() {
             </p>
             <a
               href={`mailto:${email}`}
+              data-umami-event="Footer Get In Touch Click"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-black text-sm transition-all hover:pr-8 active:scale-95"
             >
               Get in touch
@@ -98,6 +99,7 @@ export default async function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
+                      data-umami-event={`Footer ${link.label} Link`}
                       className="transition-colors hover:text-white"
                     >
                       {link.label}
@@ -117,6 +119,7 @@ export default async function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
+                      data-umami-event={`Footer Social ${link.label} Click`}
                       className="group flex items-center gap-2 transition-colors hover:text-white"
                     >
                       {getSocialIcon(link.label)}

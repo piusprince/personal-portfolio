@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { draftMode } from "next/headers";
@@ -82,6 +83,12 @@ export default async function RootLayout({
         </main>
         <Footer />
         {(await draftMode()).isEnabled && <DisableDraftMode />}
+        <Script
+          defer
+          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://cloud.umami.is/script.js"}
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

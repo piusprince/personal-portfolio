@@ -25,6 +25,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
             <Link
               href="/"
               aria-label="Home"
+              data-umami-event="Navbar Home Logo Click"
               className="glass-panel p-2 rounded-xl text-foreground hover:text-accent transition-colors"
             >
               <Logo className="w-8 h-8" bgColor="oklch(14% 0.005 286)" />
@@ -37,6 +38,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
                 <li>
                   <Link
                     href="/"
+                    data-umami-event="Navbar Home Link"
                     className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Home01Icon className="h-5 w-5" />
@@ -48,6 +50,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
                 <li>
                   <Link
                     href="/about"
+                    data-umami-event="Navbar About Link"
                     className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <UserIcon className="h-5 w-5" />
@@ -59,6 +62,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
                 <li>
                   <Link
                     href="/projects"
+                    data-umami-event="Navbar Projects Link"
                     className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <CodeCircleIcon className="h-5 w-5" />
@@ -70,6 +74,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
                 <li>
                   <Link
                     href="/contact"
+                    data-umami-event="Navbar Contact Link"
                     className="group flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Mail01Icon className="h-5 w-5" />
@@ -85,6 +90,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
           <div className="hidden md:flex justify-end gap-2">
             <Link
               href="/blog"
+              data-umami-event="Navbar Blog Link"
               className="glass-panel px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors inline-flex flex-col items-center gap-1 min-w-20"
             >
               <News01Icon className="w-5 h-5" />
@@ -96,6 +102,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
                 href={resumeUrl}
                 target="_blank"
                 rel="noreferrer"
+                data-umami-event="Navbar CV Download"
                 className="glass-panel px-4 py-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors inline-flex flex-col items-center gap-1 min-w-20"
               >
                 <File01Icon className="w-5 h-5" />
@@ -110,6 +117,7 @@ export default function Navbar({ resumeUrl }: Readonly<NavbarProps>) {
         <Link
           href="/"
           aria-label="Home"
+          data-umami-event="Mobile Navbar Home Logo Click"
           className="glass-panel w-11 h-11 rounded-xl text-foreground hover:text-accent transition-colors inline-flex items-center justify-center"
         >
           <Logo className="w-6 h-6" bgColor="oklch(14% 0.005 286)" />

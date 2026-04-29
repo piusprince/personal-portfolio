@@ -45,6 +45,7 @@ export default function MobileNavTabs({
             <Link
               href={tab.href}
               aria-current={isActive ? "page" : undefined}
+              data-umami-event={`Mobile Nav ${tab.label} Link`}
               className={cn(
                 "w-full min-w-0 flex flex-col items-center justify-center rounded-lg px-1 py-1.5 transition-colors",
                 isActive
@@ -67,6 +68,7 @@ export default function MobileNavTabs({
             href={resumeUrl}
             target="_blank"
             rel="noreferrer"
+            data-umami-event="Mobile Nav CV Download"
             className="w-full min-w-0 flex flex-col items-center justify-center rounded-lg px-1 py-1.5 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Open CV"
           >
